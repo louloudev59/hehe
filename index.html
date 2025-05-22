@@ -8,6 +8,7 @@
   <style type="text/css">
     canvas {
 
+
       margin-left: auto;
       margin-right: auto;
       margin-top: auto;
@@ -92,6 +93,10 @@
     var back = 0;
     var bouncing = 0;
     var scree = 0;
+
+    // Initialiser le compteur de morts depuis le localStorage
+    var deathCount = parseInt(localStorage.getItem('deathCount')) || 0;
+    document.title = `Morts: ${deathCount}`;
 
     var BootScene = new Phaser.Class({
 
@@ -557,6 +562,11 @@
 
             ded.setVelocityY(-100);
             death.play();
+            
+            // Incrémenter et sauvegarder le compteur de morts
+            deathCount++;
+            localStorage.setItem('deathCount', deathCount);
+            document.title = `Morts: ${deathCount}`;
           }
           //this.cameras.main.startFollow(ded);
           player.disableBody(true, true);
